@@ -1,13 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Board from './Board'
+import { useNavigate } from "react-router-dom";
 
 const Game = () => {
-  const size = 9
+  const [boardSize, setBoardSize] = useState(null)
   const [xIsNext, setXIsNext] = useState(true)
   const [squares, setSquares] = useState(
-    Array.from(Array(size), () => new Array(size).fill(null))
+    Array.from(Array(boardSize), () => new Array(boardSize).fill(null))
   )
   const [winner, setWinner] = useState(false)
+  let navigate = useNavigate()
+
+useEffect(() => {
+  const savedGameOptions = JSON.parse(localStorage.getItem('gameOptions'))
+  if (savedGameOptions) {
+    setBoardSize(Number(savedGameOptions.boardSize))
+  } else {
+    navigate("/")
+  }
+}, [])
+
 
   const updateSquares = (x, y) => {
     if (winner || squares[x][y]) return
@@ -15,13 +27,13 @@ const Game = () => {
     updatedSquares[x][y] = xIsNext ? 'X' : 'O'
     setSquares(updatedSquares)
     setXIsNext(!xIsNext)
-    const hasWinner = calculateWinner(x, y)
+    const hasWinner = checkBoardState(x, y)
     if (hasWinner) {
       setWinner(hasWinner)
     }
   }
 
-  const calculateWinner = (x, y) => {
+  const checkBoardState = (x, y) => {
     const row = squares[x]
     const isWinningRow = isWinningLine(row)
     if (isWinningRow) return isWinningRow
@@ -50,6 +62,9 @@ const Game = () => {
     const isWinningAntiDiagonal = isWinningLine(antiDiagonal)
     if (isWinningAntiDiagonal) return isWinningAntiDiagonal
 
+    const isBoardFull = squares.every(row => row.every(cell => cell))
+    if (isBoardFull) return "tie" 
+
     return false
   }
 
@@ -72,9 +87,7 @@ const Game = () => {
         counter = 0
       }
       const hasWinner = counter === 3 ? 'X' : counter === -3 ? 'O' : false
-      if (hasWinner) {
-        return hasWinner
-      }
+      if (hasWinner) return hasWinner
     }
     return false
   }
