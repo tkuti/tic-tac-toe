@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { useNavigate } from "react-router-dom"
+import {GameOptionsContext} from '../contexts/gameOptionsContext'
+import Players from '../components/Players'
 
 const Start = () => {
+  const {players, setPlayers, setBoard} = useContext(GameOptionsContext)
   const [gameOptions, setGameOptions] = useState({
     player1: '',
     player2: '',
     boardSize: '3',
-    xPlayer: ''
   })
-  const [firstPlayer, setFirstPlayer] = useState(null)
   let navigate = useNavigate();
 
   const handleChange = e => {
@@ -19,10 +20,15 @@ const Start = () => {
 
   const startGame = () => {
       const startPlayer = gameOptions.player2
-      const finalGameOptions = {...gameOptions, xPlayer: startPlayer}
-      localStorage.setItem("gameOptions", JSON.stringify(finalGameOptions))
-      setGameOptions(finalGameOptions)
-      setFirstPlayer(startPlayer)
+      const secondPlayer = gameOptions.player1
+      const players = {xPlayer: startPlayer, oPlayer: secondPlayer}
+      localStorage.setItem("players", JSON.stringify(players))
+      setPlayers(players)
+      setBoard(
+        Array.from(Array(Number(gameOptions.boardSize)), () =>
+          new Array(Number(gameOptions.boardSize)).fill(null)
+        )
+      )
       setTimeout(() => {
         navigate("/game")
       }, 3000)
@@ -32,9 +38,10 @@ const Start = () => {
     <div>
       <div className='start-screen'>
           {
-              firstPlayer &&
+              players &&
               <div className="first-player">
-                  First player is: <span>{firstPlayer}</span>
+                  First player is: <span>{players.xPlayer}</span>
+                  <Players players={players}/>
               </div>
           }
         <div className='players'>

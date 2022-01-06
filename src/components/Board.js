@@ -1,21 +1,21 @@
 import React from 'react'
 import Square from './Square'
 
-const Board = ({squares, updateSquares}) => {
+const Board = ({board, updateBoard}) => {
   
   const renderSquare = (x, y) => {
     return (
       <Square
         key={x + y}
-        value={squares[x][y]}
-        updateSquare={() => updateSquares(x, y)}
+        value={board[x][y]}
+        updateSquare={() => updateBoard(x, y)}
       />
     )
   }
 
   return (
     <div>
-      {squares.map((row, indexRow) => (
+      {board.map((row, indexRow) => (
         <div className='board-row' key={indexRow}>
           {row.map((cell, indexColumn) =>
             renderSquare(indexRow, indexColumn)

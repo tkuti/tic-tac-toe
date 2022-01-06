@@ -1,18 +1,20 @@
 import './App.css'
 import React from 'react'
-import Game from './components/Game'
-import Start from './components/Start'
-import { HashRouter, Route, Routes } from "react-router-dom";
+import Game from './pages/Game'
+import Start from './pages/Start'
+import { HashRouter, Route, Routes } from 'react-router-dom'
+import { GameOptionsContextProvider } from './contexts/gameOptionsContext'
 
 function App() {
-
   return (
     <div className='App'>
       <HashRouter>
-        <Routes>
-          <Route path="/" element={<Start />}/>
-          <Route path="/game" element={<Game />}/>
-        </Routes>
+        <GameOptionsContextProvider>
+          <Routes>
+            <Route path='/' element={<Start />} />
+            <Route path='/game' element={<Game />} />
+          </Routes>
+        </GameOptionsContextProvider>
       </HashRouter>
     </div>
   )
