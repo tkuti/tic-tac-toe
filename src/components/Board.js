@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Square from './Square'
+import { GameOptionsContext } from '../contexts/gameOptionsContext'
 
-const Board = ({board, updateBoard}) => {
-  
+const Board = ({updateBoard}) => {
+  const { board } = useContext(GameOptionsContext)
+
   const renderSquare = (x, y) => {
     return (
       <Square
