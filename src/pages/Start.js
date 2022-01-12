@@ -12,6 +12,7 @@ const Start = () => {
   })
   let navigate = useNavigate();
 
+
   const handleChange = e => {
     const name = e.target.name
     const value = e.target.value

@@ -4,13 +4,12 @@ export const WinnerContext = createContext()
 
 export const WinnerContextProvider = props => {
   const [winner, setWinner] = useState(null)
-  const [scores, setScores] = useState(JSON.parse(localStorage.getItem("scores")) || [])
+  const [scores, setScores] = useState(JSON.parse(localStorage.getItem("scores")) || {
+    winnersScores: [], movesScores: []
+  })
  
     useEffect(() => {
-        console.log(scores)
-        if (scores.length !== 0) {
-            localStorage.setItem('scores', JSON.stringify(scores))
-        }
+      localStorage.setItem('scores', JSON.stringify(scores))
     }, [scores])
 
   return (
