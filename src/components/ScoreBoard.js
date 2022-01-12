@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { WinnerContext } from '../contexts/winnerContext'
 
-const ScoreBoard = ({ type }) => {
+const ScoreBoard = ({ type, size }) => {
   const { winner, scores } = useContext(WinnerContext)
 
   const renderTableRow = () => {
     let list
     if (type === 'Winnings') {
-      list = [...scores.winnersScores]
+      list = [...scores.winnersScores].filter(score => score.size === size)
       list.sort((a, b) => b.winnings - a.winnings)
     } else {
-      list = [...scores.movesScores]
+      list = [...scores.movesScores].filter(score => score.size === size)
       list.sort((a, b) => a.moves - b.moves)
     }
     return list.map((row, index) => (
@@ -30,7 +30,7 @@ const ScoreBoard = ({ type }) => {
 
   return (
     <div>
-      <h2>{type} Score Board</h2>
+      <h3>{type} Scoreboard</h3>
       <table>
         <thead>
           <tr>

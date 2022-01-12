@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { WinnerContext } from '../contexts/winnerContext'
 import { GameOptionsContext } from '../contexts/gameOptionsContext'
 import Board from '../components/Board'
@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom'
 
 const ScoreBoards = () => {
   const { winner, setWinner, scores, setScores } = useContext(WinnerContext)
-  const { setBoard, setPlayers } = useContext(GameOptionsContext)
+  const { board, setBoard, setPlayers } = useContext(GameOptionsContext)
+  const [boardSize, setBoardSize] = useState(board.length)
   let navigate = useNavigate()
 
   const startNewGame = () => {
@@ -59,7 +60,7 @@ const ScoreBoards = () => {
     <div>
       <h1>Game Over</h1>
       <Board updateBoard={() => {}} />
-      <h2>result: </h2>
+      <h2>Result: </h2>
       {winner === 'tie' ? (
         <p>Tie game</p>
       ) : (
@@ -72,9 +73,22 @@ const ScoreBoards = () => {
         </div>
       )}
       <button onClick={startNewGame}>New Game</button>
+      <h2>Scoreboards: </h2>
+      <div className="boardsize-select">
+        <select name="boardSize" id="boardSize" defaultValue={boardSize}
+        onChange={(e) => setBoardSize(Number(e.target.value))}>
+            <option value="3">3*3</option>
+            <option value="4">4*4</option>
+            <option value="5">5*5</option>
+            <option value="6">6*6</option>
+            <option value="7">7*7</option>
+            <option value="8">8*8</option>
+            <option value="9">9*9</option>
+        </select>
+      </div>
       <div className='scoreboards-table'>
-        <ScoreBoard type='Winnings' />
-        <ScoreBoard type='Moves' />
+        <ScoreBoard type='Winnings' size={boardSize}/>
+        <ScoreBoard type='Moves' size={boardSize}/>
       </div>
     </div>
   )
