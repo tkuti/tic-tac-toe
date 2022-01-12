@@ -20,8 +20,10 @@ const Start = () => {
   }
 
   const startGame = () => {
-      const startPlayer = gameOptions.player2
-      const secondPlayer = gameOptions.player1
+      const playerNames = [gameOptions.player1, gameOptions.player2]
+      playerNames.sort((a, b) => 0.5 - Math.random())
+      const startPlayer = playerNames[0]
+      const secondPlayer = playerNames[1]
       const players = {xPlayer: startPlayer, oPlayer: secondPlayer}
       localStorage.setItem("players", JSON.stringify(players))
       setPlayers(players)
@@ -60,19 +62,19 @@ const Start = () => {
           />
         </div>
         <div className='board-size'>
-          <label htmlFor='board-size-select'></label>
+          <label htmlFor='board-size-select'>Size: </label>
           <select
             name='boardSize'
             id='board-size-select'
             onChange={handleChange}
           >
-            <option value='3'>3X3</option>
-            <option value='4'>4X4</option>
-            <option value='5'>5X5</option>
-            <option value='6'>6X6</option>
-            <option value='7'>7X7</option>
-            <option value='8'>8X8</option>
-            <option value='9'>9X9</option>
+            <option value='3'>3 X 3</option>
+            <option value='4'>4 X 4</option>
+            <option value='5'>5 X 5</option>
+            <option value='6'>6 X 6</option>
+            <option value='7'>7 X 7</option>
+            <option value='8'>8 X 8</option>
+            <option value='9'>9 X 9</option>
           </select>
         </div>
         <button onClick={startGame}>Start Game</button>

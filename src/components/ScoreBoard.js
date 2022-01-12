@@ -22,7 +22,7 @@ const ScoreBoard = ({ type, size }) => {
       }>
         <td>{index + 1}</td>
         <td>{row.name}</td>
-        <td>{row.size} * {row.size}</td>
+        <td>{row.size} X {row.size}</td>
         <td>{type === 'Winnings' ? row.winnings : row.moves}</td>
       </tr>
     ))

@@ -22,12 +22,13 @@ export const GameOptionsContextProvider = props => {
 
 
   const checkBoardState = (x, y) => {
+    const size = board.length < 4 ? 3 : 4
     const row = board[x]
-    const isWinningRow = isWinningLine(row)
+    const isWinningRow = isWinningLine(row, size)
     if (isWinningRow) return isWinningRow
 
     const column = board.map(row => row[y])
-    const isWinningColumn = isWinningLine(column)
+    const isWinningColumn = isWinningLine(column, size)
     if (isWinningColumn) return isWinningColumn
 
     let diagonal = []
@@ -37,7 +38,7 @@ export const GameOptionsContextProvider = props => {
         diagonal.push(board[i][diff])
       }
     }
-    const isWinningDiagonal = isWinningLine(diagonal)
+    const isWinningDiagonal = isWinningLine(diagonal, size)
     if (isWinningDiagonal) return isWinningDiagonal
 
     let antiDiagonal = []
@@ -47,7 +48,7 @@ export const GameOptionsContextProvider = props => {
         antiDiagonal.push(board[i][diff])
       }
     }
-    const isWinningAntiDiagonal = isWinningLine(antiDiagonal)
+    const isWinningAntiDiagonal = isWinningLine(antiDiagonal, size)
     if (isWinningAntiDiagonal) return isWinningAntiDiagonal
 
     const isBoardFull = board.every(row => row.every(cell => cell))

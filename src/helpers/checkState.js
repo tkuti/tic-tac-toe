@@ -1,4 +1,4 @@
-export const isWinningLine = line => {
+export const isWinningLine = (line, size) => {
   let counter = 0
   for (let cell of line) {
     if (cell === 'X') {
@@ -17,9 +17,9 @@ export const isWinningLine = line => {
       counter = 0
     }
     const hasWinner =
-      counter === 3
+      counter === size
         ? { winner: 'xPlayer' }
-        : counter === -3
+        : counter === (0 - size)
         ? { winner: 'oPlayer' }
         : false
     if (hasWinner) return hasWinner

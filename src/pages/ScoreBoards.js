@@ -1,24 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { WinnerContext } from '../contexts/winnerContext'
 import { GameOptionsContext } from '../contexts/gameOptionsContext'
-import Board from '../components/Board'
+import GameOver from '../components/GameOver'
 import ScoreBoard from '../components/ScoreBoard'
-import { useNavigate } from 'react-router-dom'
+
 
 const ScoreBoards = () => {
-  const { winner, setWinner, scores, setScores } = useContext(WinnerContext)
-  const { board, setBoard, setPlayers } = useContext(GameOptionsContext)
+  const { winner, scores, setScores } = useContext(WinnerContext)
+  const { board } = useContext(GameOptionsContext)
   const [boardSize, setBoardSize] = useState(board.length)
-  let navigate = useNavigate()
 
-  const startNewGame = () => {
-    setPlayers(null)
-    setBoard(null)
-    setWinner(null)
-    localStorage.removeItem('players')
-    localStorage.removeItem('board')
-    navigate('/')
-  }
 
   useEffect(() => {
     if (winner !== 'tie') {
@@ -26,6 +17,7 @@ const ScoreBoards = () => {
     }
   }, [])
 
+  
   const saveScores = () => {
     let newWinnersScores
     const isWinnerExist = scores.winnersScores.find(
@@ -58,37 +50,27 @@ const ScoreBoards = () => {
 
   return (
     <div>
-      <h1>Game Over</h1>
-      <Board updateBoard={() => {}} />
-      <h2>Result: </h2>
-      {winner === 'tie' ? (
-        <p>Tie game</p>
-      ) : (
-        <div>
-          <p>Winner: {winner.name}</p>
-          <p>
-            Game size: {winner.size}*{winner.size}
-          </p>
-          <p>Number of moves: {winner.moves}</p>
-        </div>
-      )}
-      <button onClick={startNewGame}>New Game</button>
+      <GameOver />
       <h2>Scoreboards: </h2>
-      <div className="boardsize-select">
-        <select name="boardSize" id="boardSize" defaultValue={boardSize}
-        onChange={(e) => setBoardSize(Number(e.target.value))}>
-            <option value="3">3*3</option>
-            <option value="4">4*4</option>
-            <option value="5">5*5</option>
-            <option value="6">6*6</option>
-            <option value="7">7*7</option>
-            <option value="8">8*8</option>
-            <option value="9">9*9</option>
+      <div className='boardsize-select'>
+        <select
+          name='boardSize'
+          id='boardSize'
+          defaultValue={boardSize}
+          onChange={e => setBoardSize(Number(e.target.value))}
+        >
+          <option value='3'>3X3</option>
+          <option value='4'>4X4</option>
+          <option value='5'>5X5</option>
+          <option value='6'>6X6</option>
+          <option value='7'>7X7</option>
+          <option value='8'>8X8</option>
+          <option value='9'>9X9</option>
         </select>
       </div>
       <div className='scoreboards-table'>
-        <ScoreBoard type='Winnings' size={boardSize}/>
-        <ScoreBoard type='Moves' size={boardSize}/>
+        <ScoreBoard type='Winnings' size={boardSize} />
+        <ScoreBoard type='Moves' size={boardSize} />
       </div>
     </div>
   )
