@@ -54,17 +54,23 @@ const Game = () => {
   }
 
   return (
-    <div className='game'>
-      <div className='game-board'>
-        {board && <Board updateBoard={updateBoard} />}
-      </div>
-      <div className='game-info'>
-        {players && (
-          <div className='status'>
-            Next player: {xIsNext ? players.xPlayer : players.oPlayer}
-            <Players players={players} />
-          </div>
-        )}
+    <div className='game-screen'>
+      <div className='game-wrapper'>
+        <h1 className='heading'>Tic Tac Toe</h1>
+        <div className='game'>
+          {board && <Board updateBoard={updateBoard} />}
+          {players && (
+            <div className='game-info'>
+              <p className='next-player'>
+                Next player:{' '}
+                <span className={xIsNext ? 'x-player' : 'o-player'}>
+                  {xIsNext ? players.xPlayer : players.oPlayer}
+                </span>
+              </p>
+              <Players players={players} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

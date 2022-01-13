@@ -1,0 +1,35 @@
+.scoreboards-screen {
+    @include fullscreen(url('../../images/bg2.jpg'));
+    .scoreboards {
+       @include background-filter;
+       @include flex(column, flex-start, center);
+        width: 100%;
+        min-height: inherit;
+        .scoreboards-tables {
+            @include flex(row, center, flex-start);
+            @media #{$small} {
+                flex-direction: column;
+            } 
+            .scoreboard {
+                height: 100%;
+                padding: 0 1rem;
+                .table {
+                    height: 100%;
+                    overflow-y: auto;
+                    table {
+                        border-collapse: collapse;
+                        margin-top: .8rem;
+                    }
+                    th, td {
+                        border: 1px solid #ddd;
+                        text-align: center;
+                        padding: .1rem .5rem;
+                    }
+                    .highlighted {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+}

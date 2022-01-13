@@ -1,0 +1,69 @@
+$small: "only screen and (min-width: 0) and (max-width: 374px)";
+$medium: "only screen and (min-width: 375px) and (max-width: 768px)";
+$primary-color: rgb(255, 208, 0);
+$x-color: #E82B00;
+$o-color: #09ABBD;
+
+@mixin fullscreen($background) {
+    width: 100%;
+    min-height: 100vh;
+    background: $background ;
+    background-size: cover;
+}
+
+@mixin background-filter {
+    backdrop-filter: blur(6px) grayscale(0.4) brightness(.5) sepia(.4);
+}
+
+@mixin flex ($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+html {
+    color: white;
+    font-size: 20px;
+    @media #{$small}, #{$medium} {
+        font-size: 16px;
+    }
+}
+
+input, select, button, label {
+    font-size: 1rem;
+    padding: .2rem .5rem;
+    margin: .5rem;
+}
+
+label {
+    color: $primary-color;
+}
+
+h1 {
+    font-size: 2rem;
+    color: $primary-color;
+    text-shadow: 3px 3px black;
+    text-align: center;
+}
+
+h2, h3 {
+    color: $primary-color;
+}
+
+h3 {
+    text-align: center;
+}
+
+button {
+    color: $primary-color;
+    background-color: rgba(black, .6);
+    cursor: pointer;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    &:disabled {
+        color: rgba(white, .8);
+        border: 1px solid rgba(white, .8);
+        cursor: default;
+    }
+}

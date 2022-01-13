@@ -1,0 +1,15 @@
+.start-screen {
+  @include fullscreen(url('../../images/bg1.jpg'));
+  .first-player {
+    font-size: 1.5rem;
+    span {
+      color: $x-color;
+    }
+  }
+  .game-options {
+    @include flex(column, center, center);
+    width: 100%;
+    min-height: inherit;
+    @include background-filter;
+  }
+}

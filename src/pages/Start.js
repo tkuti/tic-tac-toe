@@ -1,17 +1,18 @@
 import React, { useState, useContext } from 'react'
-import { useNavigate } from "react-router-dom"
-import {GameOptionsContext} from '../contexts/gameOptionsContext'
+import { useNavigate } from 'react-router-dom'
+import { GameOptionsContext } from '../contexts/gameOptionsContext'
 import Players from '../components/Players'
+import LoadingMask from '../components/LoadingMask'
 
 const Start = () => {
-  const {players, setPlayers, setBoard} = useContext(GameOptionsContext)
+  const { players, setPlayers, setBoard } = useContext(GameOptionsContext)
   const [gameOptions, setGameOptions] = useState({
     player1: '',
     player2: '',
-    boardSize: '3',
+    boardSize: '3'
   })
-  let navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false)
+  let navigate = useNavigate()
 
   const handleChange = e => {
     const name = e.target.name
@@ -20,47 +21,56 @@ const Start = () => {
   }
 
   const startGame = () => {
-      const playerNames = [gameOptions.player1, gameOptions.player2]
-      playerNames.sort((a, b) => 0.5 - Math.random())
-      const startPlayer = playerNames[0]
-      const secondPlayer = playerNames[1]
-      const players = {xPlayer: startPlayer, oPlayer: secondPlayer}
-      localStorage.setItem("players", JSON.stringify(players))
-      setPlayers(players)
-      setBoard(
-        Array.from(Array(Number(gameOptions.boardSize)), () =>
-          new Array(Number(gameOptions.boardSize)).fill(null)
-        )
+    setIsLoading(true)
+    const playerNames = [gameOptions.player1, gameOptions.player2]
+    playerNames.sort((a, b) => 0.5 - Math.random())
+    const startPlayer = playerNames[0]
+    const secondPlayer = playerNames[1]
+    const players = { xPlayer: startPlayer, oPlayer: secondPlayer }
+    setPlayers(players)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+    setBoard(
+      Array.from(Array(Number(gameOptions.boardSize)), () =>
+        new Array(Number(gameOptions.boardSize)).fill(null)
       )
-      setTimeout(() => {
-        navigate("/game")
-      }, 3000)
+    )
+    setTimeout(() => {
+      navigate('/game')
+    }, 6000)
   }
 
   return (
-    <div>
-      <div className='start-screen'>
-          {
-              players &&
-              <div className="first-player">
-                  First player is: <span>{players.xPlayer}</span>
-                  <Players players={players}/>
-              </div>
-          }
-        <div className='players'>
-          <input
-            type='text'
-            placeholder='Player1'
-            name='player1'
-            onChange={handleChange}
-          />
-          <input
-            type='text'
-            placeholder='Player2'
-            name='player2'
-            onChange={handleChange}
-          />
+    <div className='start-screen'>
+      {players && (
+        <div className='draw-first-player'>
+          {isLoading ? (
+            <LoadingMask />
+          ) : (
+            <div>
+              <p className='first-player'>
+                First player is: <span>{players.xPlayer}</span>
+              </p>
+              <Players players={players} />
+            </div>
+          )}
         </div>
+      )}
+      <div className='game-options'>
+        <h1>Tic Tac Toe</h1>
+        <input
+          type='text'
+          placeholder='Player1'
+          name='player1'
+          onChange={handleChange}
+        />
+        <input
+          type='text'
+          placeholder='Player2'
+          name='player2'
+          onChange={handleChange}
+        />
         <div className='board-size'>
           <label htmlFor='board-size-select'>Size: </label>
           <select
@@ -77,7 +87,12 @@ const Start = () => {
             <option value='9'>9 X 9</option>
           </select>
         </div>
-        <button onClick={startGame}>Start Game</button>
+        <button
+          onClick={startGame}
+          disabled={gameOptions.player1 && gameOptions.player2 ? false : true}
+        >
+          Start Game
+        </button>
       </div>
     </div>
   )

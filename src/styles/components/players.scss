@@ -1,0 +1,9 @@
+.players {
+    padding: 1rem 0;
+    .player {
+        @include flex(row, flex-start, center);
+        .players-icon{
+            max-height: 1.5rem;
+        }
+    }
+}

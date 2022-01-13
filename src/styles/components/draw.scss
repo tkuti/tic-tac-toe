@@ -1,0 +1,7 @@
+.draw-first-player {
+    @include fullscreen(rgba(black, .95));
+    @include flex(column, center, center);
+    position: fixed;
+    z-index: 50;
+
+}

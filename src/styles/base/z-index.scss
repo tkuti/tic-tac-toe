@@ -1,0 +1,12 @@
+$z-index: (
+  background: -1,
+  modal: 10
+);
+
+// @mixin z-index($key) {
+//   z-index: z-index($key);
+// };
+
+@mixin z-index {
+    z-index: -1;
+}

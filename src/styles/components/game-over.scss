@@ -1,0 +1,11 @@
+.game-over-wrapper {
+    @include flex(row, center, flex-start);
+    @media #{$small} {
+        flex-direction: column;
+    } 
+    padding: 1rem;
+    .results {
+        padding: 0 1rem;
+        line-height: 2rem;
+    }
+}

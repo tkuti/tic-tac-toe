@@ -1,0 +1,28 @@
+/*.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}*/
+
+.board-row {
+  display: flex;
+  .square {
+    @include flex(column, center, center);
+    background: rgba(black, 0.3);
+    border: 1px solid #999;
+    float: left;
+    width: 4rem;
+    height: 4rem;
+    margin-right: -1px;
+    margin-top: -1px;
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+    }
+    &.big {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

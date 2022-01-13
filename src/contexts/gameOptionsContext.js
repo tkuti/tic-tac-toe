@@ -17,6 +17,10 @@ export const GameOptionsContextProvider = props => {
   })
 
   useEffect(() => {
+    if (players) localStorage.setItem('players', JSON.stringify(players))
+  }, [players])
+
+  useEffect(() => {
     if (board) localStorage.setItem('board', JSON.stringify(board))
   }, [board])
 

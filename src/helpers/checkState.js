@@ -5,13 +5,13 @@ export const isWinningLine = (line, size) => {
       if (counter >= 0) {
         counter++
       } else {
-        counter = 0
+        counter = 1
       }
     } else if (cell === 'O') {
       if (counter <= 0) {
         counter--
       } else {
-        counter = 0
+        counter = -1
       }
     } else {
       counter = 0
