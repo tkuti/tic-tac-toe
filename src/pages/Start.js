@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GameOptionsContext } from '../contexts/gameOptionsContext'
 import Players from '../components/Players'
@@ -13,6 +13,12 @@ const Start = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   let navigate = useNavigate()
+
+  useEffect(() => {
+    if (players) {
+      navigate('/game')
+    }
+  }, [])
 
   const handleChange = e => {
     const name = e.target.name

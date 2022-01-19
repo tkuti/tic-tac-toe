@@ -8,7 +8,7 @@ import { WinnerContext } from '../contexts/winnerContext'
 const Game = () => {
   const { board, setBoard, checkBoardState, players } =
     useContext(GameOptionsContext)
-  const { winner, setWinner } = useContext(WinnerContext)
+  const { winner, setWinner, saveScores } = useContext(WinnerContext)
   const [xIsNext, setXIsNext] = useState(true)
   let navigate = useNavigate()
 
@@ -20,6 +20,9 @@ const Game = () => {
 
   useEffect(() => {
     if (winner) {
+      if (winner !== 'tie') {
+        saveScores()
+      }
       navigate('/score-boards')
     }
   }, [winner])

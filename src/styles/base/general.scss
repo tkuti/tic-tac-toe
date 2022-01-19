@@ -1,8 +1,13 @@
 $small: "only screen and (min-width: 0) and (max-width: 374px)";
 $medium: "only screen and (min-width: 375px) and (max-width: 768px)";
-$primary-color: rgb(255, 208, 0);
+$primary-color: #f1c532;
 $x-color: #E82B00;
 $o-color: #09ABBD;
+
+@font-face {
+    font-family: 'Recharge';
+    src: url('../../../public/font/recharge.ttf');
+  }
 
 @mixin fullscreen($background) {
     width: 100%;
@@ -25,12 +30,14 @@ $o-color: #09ABBD;
 html {
     color: white;
     font-size: 20px;
+    font-family: 'Recharge';
     @media #{$small}, #{$medium} {
         font-size: 16px;
     }
 }
 
 input, select, button, label {
+    font-family: 'Recharge';
     font-size: 1rem;
     padding: .2rem .5rem;
     margin: .5rem;
@@ -57,13 +64,19 @@ h3 {
 
 button {
     color: $primary-color;
-    background-color: rgba(black, .6);
+    background-color: rgba(black, .5);
     cursor: pointer;
     border: 1px solid $primary-color;
     border-radius: 5px;
+    &:hover {
+        background-color: rgba(black, .9);
+    }
     &:disabled {
         color: rgba(white, .8);
         border: 1px solid rgba(white, .8);
         cursor: default;
+        &:hover {
+            background-color: rgba(black, .5); 
+        }
     }
 }
